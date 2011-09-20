@@ -19,5 +19,7 @@
 provides "linux/lxc"
 require_plugin "virtualization"
 
-if virtualization[:system]
+if virtualization[:system]== "linux-lxc" && virtualization[:role] = "host"
+  virtualization[:lxc] = Mash.new
+  lxc_info = from("lxc-ls")
 
