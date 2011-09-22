@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-# You can place it under /etc/ohai/plugins/linux/
+# You can place it under /etc/chef/ohai/plugins/linux/
 # remember to modify /etc/chef/client.rb
 
 
@@ -38,4 +38,23 @@ if File.exists?("/proc/1/cpuset")
       end
     end
   end
+end
+
+
+#Grab info from the guests containers
+if virtualization[:system]== "linux-lxc" && virtualization[:role] = "host"
+   virtualization[:lxc] = Mash.new
+  #created containers
+  lxc_guests = %x{lxc-ls}.split.uniq
+  #Running continers
+  lxc_running =  %x{netstat -xa | grep /var/lib/lxc | awk '{print $9}'}.split.each {|g| g.gsub!("@/var/lib/lxc/","").gsub!("/command","")}
+
+  virtualization[:lxc][:guests] = {}
+  lxc_guests.each do |g|
+    virtualization[:lxc][:guests]["#{g}"] = {}
+    virtualization[:lxc][:guests]["#{g}"]["running"] = "no"
+   end
+    lxc_running.each do |r|
+    virtualization[:lxc][:guests]["#{r}"]["running"] = "yes"
+    end
 end
