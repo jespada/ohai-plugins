@@ -1,5 +1,5 @@
 #
-# Authors:: Jorge Espada (<espada.jorge@gmail.com>), Claudio Sanchez (<demonccc@gmail.com>)
+# Author:: Jorge Espada (<espada.jorge@gmail.com>)
 # 
 # License:: Apache License, Version 2.0
 #
