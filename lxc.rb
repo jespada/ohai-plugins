@@ -20,7 +20,7 @@ provides "linux/lxc"
 require_plugin "virtualization"
 
 #Grab info from the guests containers
-if virtualization[:system]== "linux-lxc" && virtualization[:role] = "host"
+if virtualization[:system] == "linux-lxc" && virtualization[:role] == "host"
    virtualization[:lxc] = Mash.new
   #created containers
   lxc_guests = %x{lxc-ls}.split.uniq
